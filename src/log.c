@@ -27,43 +27,62 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+static FILE *log_file;
+
+// See header for details
+void zs_log_configure(void)
+{
+   log_file = fopen("tafl.log", "w");
+}// End of zl_log_configure
+
 // See header for details
 void zs_log(const char *filename, const char *method, int line, LogLevel level, const char *format, ...)
 {
-   /*va_list args;
+   if (!log_file || level == LogLevelVerbose)
+      return;
+
+   va_list args;
    va_start(args, format);
 
-   printf("[");
+   fprintf(log_file, "[");
    switch(level)
    {
       case LogLevelCritical:
-         printf("CRITICAL");
+         fprintf(log_file, "CRITICAL");
          break;
 
       case LogLevelError:
-         printf("  ERROR");
+         fprintf(log_file, "  ERROR");
          break;
 
       case LogLevelWarning:
-         printf("WARNING");
+         fprintf(log_file, "WARNING");
          break;
 
       case LogLevelInfo:
-         printf("   INFO");
+         fprintf(log_file, "   INFO");
          break;
 
       case LogLevelDebug:
-         printf("  DEBUG");
+         fprintf(log_file, "  DEBUG");
          break;
 
       case LogLevelVerbose:
-         printf("VERBOSE");
+         fprintf(log_file, "VERBOSE");
          break;
    }
-   printf("] ");
+   fprintf(log_file, "] ");
 
-   vprintf(format, args);
-   printf(" // %s():%d - %s\n", method, line, filename);
+   vfprintf(log_file, format, args);
+   fprintf(log_file, " // %s():%d - %s\n", method, line, filename);
 
-   va_end(args); */
+   va_end(args);
 }// End of log method
+
+// See header for details
+void zs_log_cleanup(void)
+{
+   if (!log_file)
+      return;
+   fclose(log_file);
+}// End of zl_log_cleanup

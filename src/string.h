@@ -22,39 +22,19 @@
    THE SOFTWARE.
 */
 
-/*
-   DynamicArray
-   Dynamic array class, using a doubling strategy.
+#include <string.h>
+#include <stdbool.h>
 
-   NOTE: Currently only adding to back is supported.
-   TODO: Add support for adding to front, at index, and removing.
-*/
+// string_equal(str1, str2, ignore_case) Returns whether or not str1 and str2 are equal.
+//                                          If ignore_case is true, then case is ignored.
+bool string_equal(const char *str1, const char *str2, bool ignore_case);
 
-#ifndef _DYNAMIC_ARRAY_H
-#define _DYNAMIC_ARRAY_H
+// string_compare(str1, str2, ignore_case) Compares str1 to str2.
+//                                           If ignore_case is true, then case is ignored.
+int string_compare(const char *str1, const char *str2, bool ignore_case);
 
-struct DynamicArray;
-typedef struct DynamicArray *DynamicArray;
+// to_uppercase(str) Converts the characters in str to uppercase.
+void to_uppercase(char *str);
 
-typedef void (*FreeFunction)(void *);
-
-// do_nothing(ptr) Does nothing (does not free the ptr).
-void do_nothing(void *ptr);
-
-// create_DynamicArray() Creates a new dynamic array.
-DynamicArray create_DynamicArray(FreeFunction free_function);
-
-// destroy_DynamicArray(array) Destroys the dynamic array.
-void destroy_DynamicArray(DynamicArray array);
-
-// DynamicArray_add(array) Adds an element to the rear of the array.
-void DynamicArray_add(DynamicArray array, void *item);
-
-// DynamicArray_count(array) Returns the number of elements in the array.
-int DynamicArray_count(DynamicArray array);
-
-// DynamicArray_element_at(array, index) Returns the item at index.
-//                                    Returns NULL if item does not exist.
-void *DynamicArray_element_at(DynamicArray array, int index);
-
-#endif
+// to_lowercase(str) Converts the characters in str to lowercase.
+void to_lowercase(char *str);

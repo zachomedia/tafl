@@ -39,6 +39,13 @@ struct DynamicArray
 };
 
 // See header for details
+void do_nothing(void *ptr)
+{
+   log_entering();
+   log_exiting();
+}// End of do_nothing
+
+// See header for details
 DynamicArray create_DynamicArray(FreeFunction free_function)
 {
    log_entering();
@@ -97,7 +104,7 @@ void DynamicArray_add(DynamicArray array, void *item)
    array->data[array->count] = item;
    array->count += 1;
 
-   log_debug("Array contains %d elements", array->count);
+   log_verbose("Array contains %d elements", array->count);
 
    log_exiting();
 }// End of DynamicArray_add

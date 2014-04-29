@@ -24,6 +24,12 @@
 
 typedef enum LogLevel { LogLevelCritical, LogLevelError, LogLevelWarning, LogLevelInfo, LogLevelDebug, LogLevelVerbose } LogLevel;
 
+// zs_log_configure() Configures the logging.
+void zs_log_configure(void);
+
+// zs_log_cleanup() Cleans up logging.
+void zs_log_cleanup(void);
+
 // log(filename, method, line, format, ...) Logs information to the console.
 void zs_log(const char *filename, const char *method, int line, LogLevel level, const char *format, ...);
 
@@ -34,5 +40,5 @@ void zs_log(const char *filename, const char *method, int line, LogLevel level, 
 #define log_debug(format, ...) zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelDebug, format, ##__VA_ARGS__)
 #define log_verbose(format, ...) zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelVerbose, format, ##__VA_ARGS__)
 
-#define log_entering() zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelDebug, "Entering")
-#define log_exiting() zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelDebug, "Exiting")
+#define log_entering() zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelVerbose, "Entering")
+#define log_exiting() zs_log(__FILE__, __FUNCTION__, __LINE__, LogLevelVerbose, "Exiting")
